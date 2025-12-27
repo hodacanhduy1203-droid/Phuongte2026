@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tra Bài Thuốc YHCT</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page">
+    <aside class="sidebar">
+      <div class="side-top">
+        <div class="logo">YHCT</div>
+        <div class="side-title">
+          <div class="h1">Tra Bài Thuốc <span class="name">(Duy Hồ)</span></div>
+          <div class="sub">Tra cứu Đông Y – Chương 2 → 19</div>
+        </div>
+      </div>
+
+      <div class="side-block">
+        <div class="label">Tìm theo tên bài thuốc</div>
+        <input id="nameInput" class="input" type="text" placeholder="Ví dụ: Cửu vị..., Bạch hổ..., tiêu đạo..." autocomplete="off" />
+      </div>
+
+      <div class="side-block">
+        <div class="label">Tìm theo triệu chứng</div>
+        <input id="symptomInput" class="input" type="text" placeholder="Ví dụ: ho, khó thở, đau bụng..." autocomplete="off" />
+        <div class="hint">Nhập nhiều triệu chứng (cách nhau bằng dấu phẩy) → lọc chính xác hơn.</div>
+      </div>
+
+      <div class="side-block">
+        <div class="label">Tìm theo công dụng</div>
+        <input id="effectInput" class="input" type="text" placeholder="Ví dụ: thanh nhiệt, trừ đàm, bổ khí..." autocomplete="off" />
+      </div>
+
+      <div class="side-block">
+        <div class="label">Chương</div>
+        <select id="chapterSelect" class="select">
+          <option value="all">(Tất cả chương)</option>
+        </select>
+      </div>
+
+      <div class="side-block side-results-head">
+        <div>
+          <div class="label">Danh sách bài thuốc</div>
+          <div class="count"><span id="resultCount">0</span> bài thuốc</div>
+        </div>
+        <button id="clearBtn" class="btn">Đặt lại</button>
+      </div>
+<div class="list" id="results" aria-live="polite"></div>
+</aside>
+
+    <main class="content">
+      <section class="detail-card" id="detailPanel">
+        <div class="detail-head">
+          <button id="backBtn" class="back-btn" type="button" aria-label="Quay lại">← Quay lại</button>
+        <div>
+            <div class="detail-title" id="detailTitle">Chọn một bài thuốc</div>
+            <div class="detail-sub" id="detailSub">—</div>
+          </div>
+          <div class="pill">YHCT</div>
+        </div>
+
+        <div class="detail-body" id="detail">
+          <div class="empty">Chọn 1 bài thuốc bên trái để xem chi tiết.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <select id="modeSelect" style="display:none"><option value="any">any</option><option value="both">both</option></select>
+  <select id="sortSelect" style="display:none"><option value="score">score</option><option value="name">name</option></select>
+  <button id="demoBtn" style="display:none"></button>
+  <button id="closeDetailBtn" style="display:none"></button>
+
+  <script src="./app.js"></script>
+</body>
+</html>

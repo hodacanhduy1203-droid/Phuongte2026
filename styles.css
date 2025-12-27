@@ -1,0 +1,551 @@
+/* ===== UI giống hình mẫu (YHCT, đơn giản, dễ nhìn) ===== */
+:root{
+  --bg: #efe4cf;
+  --panel: #f6efe2;
+  --panel2:#faf6ee;
+  --border: rgba(0,0,0,0.08);
+
+  --text: #1f1a14;
+  --muted:#6a5b4d;
+
+  --brand: #2c5a3a;
+  --brand2:#3b6f49;
+
+  --radius: 18px;
+  --radius2: 22px;
+
+  --shadow: 0 12px 28px rgba(0,0,0,0.10);
+  --shadow2: 0 10px 24px rgba(0,0,0,0.08);
+
+  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+*{ box-sizing:border-box; }
+html,body{
+  overflow: hidden; /* chặn pull-to-refresh vì body không cuộn */
+body{
+  margin:0;
+  font-family: var(--font);
+  color: var(--text);
+  background:
+    radial-gradient(1200px 700px at 18% 8%, rgba(44,90,58,0.08), transparent 55%),
+    radial-gradient(1100px 700px at 80% 20%, rgba(155,112,66,0.06), transparent 55%),
+    var(--bg);
+}
+
+/* ===== Mobile/Tablet UX: không "pull-to-refresh" làm tải lại, scroll mượt ===== */
+html, body{
+  overscroll-behavior-y: none;   /* chặn bounce/pull-to-refresh trên nhiều trình duyệt */
+}
+body{
+  touch-action: pan-y;           /* ưu tiên cuộn dọc */
+}
+.sidebar, .list, .detail-body{
+  overscroll-behavior: contain;  /* cuộn trong khung không kéo lan ra ngoài */
+  -webkit-overflow-scrolling: touch;
+}
+
+.page{
+  overflow: hidden; /* chỉ cuộn bên trong */
+
+  min-height: 100vh;
+  min-height: 100dvh; /* iOS/Safari dynamic viewport */
+  display:grid;
+  grid-template-columns: 420px 1fr;
+  gap: 18px;
+  padding: calc(12px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left));
+}
+
+/* ===== Sidebar ===== */
+.sidebar{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+
+  display:flex;
+  flex-direction:column;
+  min-height: auto;
+}
+
+.side-top{
+  display:flex;
+  gap: 14px;
+  align-items:center;
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.06);
+  border-bottom: 1px solid var(--border);
+}
+.logo{
+  width: 54px; height: 54px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  letter-spacing: .6px;
+}
+.side-title .h1{
+  font-size: 22px;
+  font-weight: 800;
+}
+.side-title .name{
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(0,0,0,0.55);
+  margin-left: 6px;
+}
+.side-title .sub{
+  margin-top: 4px;
+  color: rgba(0,0,0,0.55);
+  font-size: 14px;
+}
+
+/* blocks */
+.side-block{
+  padding: 8px 16px 0;
+}
+.label{
+  font-weight: 800;
+  color: rgba(0,0,0,0.70);
+  margin-bottom: 8px;
+}
+.input, .select{
+  width:100%;
+  padding: 16px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: var(--panel2);
+  outline: none;
+  font-size: 16px;
+}
+.input:focus, .select:focus{
+  border-color: rgba(44,90,58,0.35);
+  box-shadow: 0 0 0 4px rgba(44,90,58,0.10);
+}
+.hint{
+  margin-top: 4px;
+  color: rgba(0,0,0,0.55);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.side-results-head{
+  margin-top: 6px;
+  
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+}
+.count{
+  color: rgba(0,0,0,0.55);
+  font-size: 14px;
+}
+.btn{
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(0,0,0,0.04);
+  cursor:pointer;
+  font-weight: 800;
+}
+.btn:hover{ background: rgba(0,0,0,0.06); }
+
+/* list */
+.list{
+  margin-top: 4px;
+  padding: 0 14px 10px;
+  overflow:auto;
+  flex: 1;
+}
+.remedy-card{
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 18px;
+  padding: 16px 16px;
+  margin-bottom: 12px;
+  cursor:pointer;
+}
+.remedy-card:hover{
+  background: rgba(255,255,255,0.70);
+  box-shadow: var(--shadow2);
+}
+.remedy-name{
+  font-size: 20px;
+  font-weight: 900;
+  margin:0;
+}
+.remedy-meta{
+  margin-top: 6px;
+  color: rgba(0,0,0,0.60);
+  font-size: 14px;
+}
+/* ===== Content / Detail ===== */
+.content{
+  min-height: auto;
+display:flex;
+}
+.detail-card{
+  width:100%;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display:flex;
+  flex-direction:column;
+}
+.detail-head{
+  padding: 18px 20px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.35);
+}
+.detail-title{
+  font-size: 40px;
+  font-weight: 950;
+  line-height: 1.05;
+}
+.detail-sub{
+  margin-top: 10px;
+  color: rgba(0,0,0,0.55);
+  font-size: 18px;
+}
+.pill{
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.20);
+  background: rgba(0,0,0,0.06);
+  font-weight: 900;
+  letter-spacing: .6px;
+}
+
+.detail-body{
+  padding: 18px 20px;
+  overflow:auto;
+}
+.section{
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.10);
+}
+.section:last-child{ border-bottom: none; }
+.section h3{
+  margin:0 0 10px;
+  font-size: 22px;
+}
+.section .text{
+  font-size: 18px;
+  line-height: 1.55;
+  color: rgba(0,0,0,0.75);
+}
+.empty{
+  color: rgba(0,0,0,0.55);
+  font-size: 18px;
+  padding: 20px 0;
+}
+
+/* responsive */
+
+
+/* ===== Responsive: Tablet (<= 1024px) ===== */
+@media (max-width: 1024px){
+  .page{
+    grid-template-columns: 380px 1fr;
+    gap: 14px;
+    padding: 12px;
+  }
+  .detail-title{ font-size: 34px; }
+}
+
+/* ===== Responsive: Small tablet / phone landscape (<= 900px) ===== */
+@media (max-width: 900px){
+  .page{
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 12px;
+  }
+  .sidebar{
+    min-height: auto;
+  }
+  /* Cho danh sách bài thuốc cuộn độc lập, không kéo cả trang */
+  .list{
+    max-height: 46vh;
+  }
+  .detail-title{ font-size: 30px; }
+}
+
+/* ===== Responsive: Phone (<= 600px) ===== */
+@media (max-width: 600px){
+  .page{ padding: 10px; }
+  .side-top{ padding: calc(12px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left)); }
+  .logo{ width: 48px; height: 48px; border-radius: 14px; }
+  .side-title .h1{ font-size: 18px; }
+  .side-title .sub{ font-size: 13px; }
+  .input, .select{ padding: 14px 14px; font-size: 15px; border-radius: 16px; }
+  .btn{ padding: 10px 12px; border-radius: 14px; }
+  .remedy-name{ font-size: 18px; }
+  .detail-head{ padding: 14px 14px; }
+  .detail-title{ font-size: 26px; }
+  .detail-sub{ font-size: 15px; }
+  .detail-body{ padding: calc(12px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left)); }
+  .section h3{ font-size: 18px; }
+  .section .text{ font-size: 16px; }
+  .pill{ padding: 8px 12px; }
+}
+
+
+
+/* Mobile one-column: cho phép cuộn trang, vẫn chặn pull-to-refresh bằng JS + overscroll rules */
+@media (max-width: 900px){
+.sidebar, .detail-card{ height: auto; }
+}
+
+
+/* ===== Desktop/tablet landscape: khóa cuộn body, cuộn trong khung ===== */
+@media (min-width: 901px){
+  body{ overflow: hidden; }
+  .sidebar, .detail-card{
+    height: calc(100vh - 24px);
+    height: calc(100dvh - 24px);
+  }
+  .list, .detail-body{ overflow: auto; }
+}
+
+/* ===== Tablet portrait & phone: 1 cột, không bị che ===== */
+@media (max-width: 900px){
+.page{
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .sidebar, .detail-card{
+    height: auto;
+  }
+  /* Danh sách cuộn vừa đủ để không đẩy chi tiết xuống quá sâu */
+  .list{
+    max-height: 46vh;
+    max-height: 46dvh;
+  }
+  .detail-title{ font-size: 30px; }
+}
+
+/* ===== Small phone ===== */
+@media (max-width: 600px){
+  .side-top{ padding: 12px 14px; }
+  .logo{ width: 46px; height: 46px; border-radius: 14px; }
+  .side-title .h1{ font-size: 18px; }
+  .side-title .sub{ font-size: 13px; }
+  .input, .select{ padding: 14px; font-size: 15px; border-radius: 16px; }
+  .btn{ padding: 10px 12px; border-radius: 14px; }
+  .detail-head{ padding: 14px; }
+  .detail-title{ font-size: 26px; }
+  .detail-sub{ font-size: 15px; }
+  .detail-body{ padding: 14px; }
+  .section h3{ font-size: 18px; }
+  .section .text{ font-size: 16px; }
+}
+
+
+/* ===== Force mobile layout on touch devices (khi trình duyệt mở ở chế độ "Desktop site" vẫn không bị che) ===== */
+@media (hover: none) and (pointer: coarse){
+  body{ overflow: hidden !important; }
+  .page{
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .sidebar, .detail-card{
+    height: auto !important;
+    min-height: auto !important;
+  }
+  .list{
+    max-height: 46vh;
+    max-height: 46dvh;
+  }
+}
+
+
+/* ===== Mobile/Tablet: body không cuộn -> tránh reload khi kéo; cuộn trong từng khung ===== */
+@media (max-width: 900px){
+  .page{
+    grid-template-columns: 1fr;
+    grid-template-rows: 52dvh 1fr; /* trên: sidebar, dưới: chi tiết */
+    gap: 12px;
+  }
+  .sidebar{
+    height: 52dvh;
+    overflow: hidden;
+  }
+  .detail-card{
+    height: calc(100dvh - 52dvh - 24px); /* trừ gap/padding ước lượng */
+    overflow: hidden;
+  }
+  .list{ max-height: none; } /* list cuộn theo flex */
+}
+@media (max-width: 600px){
+  .page{
+    grid-template-rows: 54dvh 1fr;
+  }
+  .sidebar{ height: 54dvh; }
+  .detail-card{
+    height: calc(100dvh - 54dvh - 24px);
+  }
+}
+
+
+/* ===== Desktop/Laptop: gom phần tìm kiếm gọn để danh sách hiển thị được nhiều hơn ===== */
+@media (min-width: 901px){
+  .side-top{ padding: 10px 14px; }
+  .logo{ width: 48px; height: 48px; border-radius: 14px; }
+  .side-title .h1{ font-size: 20px; }
+  .side-title .sub{ font-size: 13px; margin-top: 2px; }
+
+  .side-block{ padding: 6px 14px 0; }
+  .label{ margin-bottom: 6px; }
+  .input, .select{ padding: 12px 12px; font-size: 15px; border-radius: 16px; }
+  .hint{ margin-top: 4px; font-size: 13px; }
+
+  .side-results-head{  }
+  .btn{ padding: 10px 12px; border-radius: 14px; }
+
+  .list{ padding: 0 12px 10px; }
+  .remedy-card{ padding: 12px 12px; margin-bottom: 10px; }
+  .remedy-name{ font-size: 18px; }
+  .remedy-meta{ font-size: 13px; }
+
+  }
+
+
+/* ===== Mobile navigation: chọn bài thuốc -> sang trang chi tiết, có nút quay lại ===== */
+.back-btn{
+  display:none;
+  border: 1px solid rgba(0,0,0,0.18);
+  background: rgba(255,255,255,0.5);
+  border-radius: 999px;
+  padding: 10px 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.back-btn:active{ transform: translateY(1px); }
+
+@media (max-width: 900px){
+  /* mặc định: chỉ hiện danh sách */
+  .content{ display:none; }
+  body.mobile-detail .content{ display:flex; }
+  body.mobile-detail .sidebar{ display:none; }
+
+  /* nút quay lại chỉ hiện ở mobile khi đang xem chi tiết */
+  body.mobile-detail .back-btn{ display:inline-flex; align-items:center; gap:8px; }
+
+  /* header chi tiết cân lại khi có nút */
+  .detail-head{ align-items:center; }
+  .detail-head > div{ flex: 1; }
+}
+
+
+/* ===== FIX mobile/tablet: hiển thị đủ trang + cuộn được (tiiny banner không che) ===== */
+@media (max-width: 900px){
+  body{ overflow: hidden !important; }
+
+  /* mỗi "trang" chiếm full màn hình */
+  .page{
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 1fr !important;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  /* Trang danh sách */
+  .sidebar{
+    display:flex;
+    flex-direction:column;
+    height: 100dvh !important;
+    overflow: auto !important; /* cho cuộn toàn sidebar */
+         /* chừa chỗ cho thanh của tiiny.host & thanh điều hướng */
+  }
+  .list{
+    flex: 1;
+    overflow: auto;
+    max-height: none !important;
+  }
+
+  /* Trang chi tiết */
+  .detail-card{
+    height: 100dvh !important;
+    overflow: hidden;
+  }
+  .detail-body{
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+     /* tránh bị banner che khi kéo cuối */
+  }
+}
+
+
+@media (max-width: 900px){
+  .list{
+    
+     /* đảm bảo luôn thấy danh sách */
+  }
+  /* Nếu muốn gọn, có thể ẩn footer trên mobile để không chiếm chỗ */
+  }
+
+@media (max-width: 900px){
+  .sidebar{
+    padding-bottom: 80px; /* vừa đủ tránh banner tiiny */
+  }
+  .list{
+    padding-bottom: 80px;
+  }
+}
+
+
+/* ===== Mobile: làm đẹp tiêu đề bài thuốc (không bị xuống dòng xấu) ===== */
+@media (max-width: 900px){
+  /* Header chi tiết chuyển sang dạng "app": hàng trên có Quay lại + YHCT, dưới là tiêu đề */
+  .detail-head{
+    display: grid !important;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "back . pill"
+      "title title title"
+      "sub sub sub";
+    row-gap: 10px;
+    column-gap: 10px;
+    align-items: center;
+  }
+  .back-btn{ grid-area: back; }
+  .detail-head .pill{ grid-area: pill; justify-self: end; }
+
+  .detail-head > div{ grid-area: title; } /* khối chứa title/sub */
+  .detail-title{
+    font-size: clamp(26px, 7vw, 40px);
+    line-height: 1.12;
+    letter-spacing: -0.3px;
+    margin: 0;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  .detail-sub{
+    grid-area: sub;
+    font-size: 15px;
+    margin-top: 2px;
+    opacity: .85;
+  }
+  /* tránh title bị dính sát */
+  .detail-head > div .detail-sub{ margin-top: 6px; }
+}
+@media (max-width: 600px){
+  .detail-title{
+    font-size: clamp(24px, 8vw, 36px);
+  }
+  .back-btn{
+    padding: 9px 11px;
+  }
+}
+
